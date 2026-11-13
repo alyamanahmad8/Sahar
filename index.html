@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="سبعة ألغاز لطيفة تقودك إلى بطاقة معايدة ورسالة من القلب."
+    />
+    <meta name="theme-color" content="#f8edf3" />
+    <title>هدية صغيرة من القلب ✨</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+    <main class="page-shell">
+      <article class="gift-card">
+        <div class="card-topline" aria-hidden="true">
+          <span>✦</span><span>هدية صغيرة</span><span>✦</span>
+        </div>
+        <div class="brand-mark" aria-hidden="true">❀</div>
+        <p class="eyebrow">من القلب، إلكِ</p>
+        <h1>مفاجأة صغيرة يا حلوة</h1>
+        <p class="intro">كم لغز لطيف، وبعدها رسالة معمولة خصيصًا إلكِ 🤍</p>
+
+        <section id="login-stage" class="stage active" aria-labelledby="login-title">
+          <span class="step-label">البداية · دخول صغير ✨</span>
+          <h2 id="login-title" class="stage-title">جاهزة للمفاجأة؟</h2>
+          <p class="stage-copy">دخّلي اسم المستخدم وكلمة المرور لنبدأ حكايتنا.</p>
+          <form id="login-form" class="form-stack">
+            <label class="sr-only" for="username">اسم المستخدم</label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              placeholder="اسم المستخدم"
+              autocomplete="username"
+              required
+            />
+            <label class="sr-only" for="password">كلمة المرور</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="كلمة المرور"
+              autocomplete="current-password"
+              required
+            />
+            <button type="submit">افتحي الهدية <span aria-hidden="true">♡</span></button>
+          </form>
+          <p id="login-error" class="feedback" aria-live="polite"></p>
+        </section>
+
+        <section id="quiz-stage" class="stage" aria-labelledby="quiz-title" hidden>
+          <div class="progress-heading">
+            <span class="step-label">رحلة الألغاز</span>
+            <span id="question-count" class="question-count"></span>
+          </div>
+          <div
+            class="progress-track"
+            role="progressbar"
+            aria-label="التقدم في الألغاز"
+            aria-valuemin="0"
+            aria-valuemax="7"
+            aria-valuenow="0"
+          >
+            <span id="progress-fill"></span>
+          </div>
+          <h2 id="quiz-title" class="stage-title">لغز صغير إلكِ</h2>
+          <p id="riddle" class="riddle-text"></p>
+          <p id="hint" class="hint-text"></p>
+          <form id="answer-form" class="form-stack">
+            <label class="sr-only" for="answer">إجابتك</label>
+            <input
+              id="answer"
+              name="answer"
+              type="text"
+              placeholder="اكتبي إجابتك هون"
+              autocomplete="off"
+              required
+            />
+            <button type="submit">تأكيد الإجابة <span aria-hidden="true">✦</span></button>
+          </form>
+          <p id="answer-feedback" class="feedback" aria-live="polite"></p>
+        </section>
+
+        <section id="message-stage" class="stage" aria-labelledby="message-title" hidden>
+          <span class="step-label">وصلنا لشي حلو 💌</span>
+          <h2 id="message-title" class="stage-title">هلق دورك تحكيلي</h2>
+          <p class="stage-copy">اكتبيلي أي شي بخاطرك، ورح توصلني رسالتك على الإيميل 🤍</p>
+          <form id="message-form" class="form-stack">
+            <label class="sr-only" for="sender-name">اسمك</label>
+            <input
+              id="sender-name"
+              name="name"
+              type="text"
+              placeholder="اسمك أو خليها مفاجأة"
+              maxlength="80"
+              autocomplete="name"
+            />
+            <label class="sr-only" for="message">رسالتك</label>
+            <textarea
+              id="message"
+              name="message"
+              placeholder="اكتبيلي شي حلو..."
+              rows="5"
+              maxlength="2000"
+              required
+            ></textarea>
+            <button id="send-button" type="submit">ابعتيلي رسالتك <span aria-hidden="true">♡</span></button>
+          </form>
+          <p class="privacy-note">رسالتك رح توصل لبريدي عبر خدمة إرسال النماذج.</p>
+          <p id="message-feedback" class="feedback" aria-live="polite"></p>
+          <button id="continue-button" class="text-button" type="button" hidden>
+            كمّلي للمعايدة <span aria-hidden="true">←</span>
+          </button>
+        </section>
+
+        <section id="greeting-stage" class="stage" aria-labelledby="greeting-title" hidden>
+          <span class="step-label">إلكِ، بكل الحب 🎁</span>
+          <div class="celebration" aria-hidden="true">🎂 ✨ 🌷</div>
+          <h2 id="greeting-title" class="stage-title">كل عام وإنتِ بألف خير!</h2>
+          <div class="greeting-note">
+            <p>يا أحلى سحر، بتمنالك أيامًا تشبه قلبك الحلو، مليانة ضحك وراحة وأشياء بتفرّحك.</p>
+            <p>يا رب كل أمنية مخبّاية بقلبك تصير حقيقة، وتضلي دايمًا منوّرة حياة اللي حواليكِ.</p>
+            <p class="wish-signoff">إلكِ مني كل الحب والفرح، اليوم وكل يوم 🤍</p>
+          </div>
+          <p class="signature">من شخص بيتمنالك كل السعادة ✨</p>
+        </section>
+        <div class="card-footer" aria-hidden="true"><span>♡</span> صُنعت بمحبة <span>♡</span></div>
+      </article>
+    </main>
+  </body>
+</html>
