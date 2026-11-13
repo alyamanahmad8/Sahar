@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="سبعة ألغاز لطيفة تقودك إلى بطاقة معايدة ورسالة من القلب."
+      content="سبعة أسئلة لطيفة باللهجة الشامية تقودك إلى بطاقة معايدة ورسالة من القلب."
     />
-    <meta name="theme-color" content="#84243d" />
+    <meta name="theme-color" content="#7e1838" />
     <title>هدية صغيرة من القلب ✨</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,12 +24,12 @@
     <main class="page-shell">
       <article class="gift-card">
         <div class="card-topline" aria-hidden="true">
-          <span>✦</span><span>هدية صغيرة</span><span>✦</span>
+          <span>♡</span><span>هدية صغيرة</span><span>♡</span>
         </div>
-        <div class="brand-mark" aria-hidden="true">❀</div>
+        <div class="brand-mark" aria-hidden="true">♥</div>
         <p class="eyebrow">إلك يا سحر</p>
         <h1>مفاجأة صغيرة من قلبي</h1>
-        <p class="intro">كم لغز خفاف، وبالآخر في شي بدي قلك ياه 🤍</p>
+        <p class="intro">كم سؤال خفاف، وبالآخر في شي بدي قلك ياه 🤍</p>
 
         <section id="login-stage" class="stage active" aria-labelledby="login-title">
           <span class="step-label">يلا نبلّش ✨</span>
@@ -50,7 +50,7 @@
               id="password"
               name="password"
               type="password"
-              placeholder="كلمة المرور"
+              placeholder="كلمة السر"
               autocomplete="current-password"
               required
             />
@@ -61,13 +61,13 @@
 
         <section id="quiz-stage" class="stage" aria-labelledby="quiz-title" hidden>
           <div class="progress-heading">
-            <span class="step-label">كم لغز حلوين</span>
+            <span class="step-label">كم سؤال حلوين</span>
             <span id="question-count" class="question-count"></span>
           </div>
           <div
             class="progress-track"
             role="progressbar"
-            aria-label="التقدم في الألغاز"
+            aria-label="التقدم بالأسئلة"
             aria-valuemin="0"
             aria-valuemax="7"
             aria-valuenow="0"
@@ -89,25 +89,19 @@
             />
             <button type="submit">إيه هي <span aria-hidden="true">♡</span></button>
           </form>
-          <div id="choice-buttons" class="choice-buttons" hidden>
-            <button id="love-button" type="button">بحبك 🤍</button>
-            <button
-              id="no-love-button"
-              class="no-love-button"
-              type="button"
-              tabindex="-1"
-              aria-label="ما بحبك، بس هالزر رح يهرب"
-            >
-              ما بحبك 🙈
+          <div id="choice-arena" class="choice-arena" hidden>
+            <button id="love-choice" class="choice-button" type="button">بحبك 🤍</button>
+            <button id="no-love-choice" class="choice-button no-love-choice" type="button">
+              ما بحبك
             </button>
           </div>
           <p id="answer-feedback" class="feedback" aria-live="polite"></p>
         </section>
 
         <section id="message-stage" class="stage" aria-labelledby="message-title" hidden>
-          <span class="step-label">هلق دورك 💌</span>
-          <h2 id="message-title" class="stage-title">هلق صار دورك تحكيلي</h2>
-          <p class="stage-copy">اكتبيلي اللي بخاطرك، ورح توصلني رسالتك عالإيميل 🤍</p>
+          <span class="step-label">هلق إجا دورك 💌</span>
+          <h2 id="message-title" class="stage-title">شو بدك تحكيلي؟</h2>
+          <p class="stage-copy">إذا حابة، اكتبِيلي شي من قلبك وبيوصلني عالإيميل 🤍</p>
           <form id="message-form" class="form-stack">
             <label class="sr-only" for="sender-name">اسمك</label>
             <input
@@ -122,14 +116,14 @@
             <textarea
               id="message"
               name="message"
-              placeholder="اكتبيلي شي من قلبك..."
+              placeholder="اكتبِيلي اللي بخاطرك..."
               rows="5"
               maxlength="2000"
               required
             ></textarea>
             <button id="send-button" type="submit">ابعتيلي ياها <span aria-hidden="true">♡</span></button>
           </form>
-          <p class="privacy-note">رسالتك رح توصل لعندي عالإيميل عن طريق خدمة الإرسال.</p>
+          <p class="privacy-note">رسالتك رح توصلني عالإيميل 🤍</p>
           <p id="message-feedback" class="feedback" aria-live="polite"></p>
           <button id="continue-button" class="text-button" type="button" hidden>
             كمّلي للمعايدة <span aria-hidden="true">←</span>
@@ -137,8 +131,8 @@
         </section>
 
         <section id="greeting-stage" class="stage" aria-labelledby="greeting-title" hidden>
-          <span class="step-label">إلك يا سحر، بكل الحب 🎁</span>
-          <div class="celebration" aria-hidden="true">🎂 ✨ 🌷</div>
+          <span class="step-label">إلكِ يا سحر 🎁</span>
+          <div class="celebration" aria-hidden="true">🎂 🤍 🌷</div>
           <h2 id="greeting-title" class="stage-title">كل سنة وإنتِ سالمة!</h2>
           <div class="greeting-note">
             <p>يا رب سنتك الجديدة تكون مليانة ضحك وفرح، وأيام حلوة بتشبه قلبك.</p>
@@ -147,7 +141,7 @@
           </div>
           <p class="signature">من حدا معجب فيكي وبيتمنالك كل الفرح ✨</p>
         </section>
-        <div class="card-footer" aria-hidden="true"><span>♡</span> صُنعت بمحبة <span>♡</span></div>
+        <div class="card-footer" aria-hidden="true"><span>♡</span> معمولة بمحبة <span>♡</span></div>
       </article>
     </main>
   </body>

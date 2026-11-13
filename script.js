@@ -5,39 +5,39 @@ const MESSAGE_EMAIL = "yamanahmad951@gmail.com";
 
 const riddles = [
   {
-    question: "شو أول شي بيخلّي الواحد يبتسم غصب عنه لما يشوف حدا بيعزّ عليه؟",
-    hint: "بتطلع عالوجه من غير استئذان 😉",
-    answers: ["ابتسامة", "الابتسامة", "ابتسامه", "الابتسامه", "بسمة", "البسمة", "ضحكة", "الضحكة"],
+    question: "شي صغير منك، بيخلّي يومي أحلى من دون ما تعملي شي. شو هو؟",
+    hint: "ممكن يوصل عالتلفون، وممكن يضلّ ببالي طول النهار 📱",
+    answers: ["رسالة", "الرسالة", "رساله", "الرساله", "رسالتك", "حكي", "كلمة", "كلمه"],
   },
   {
-    question: "بتنبعت بكبسة، وإذا إجت من حدا غالي بتخلّي نهارك أحلى. شو هي؟",
-    hint: "ممكن تكون كلمة، أو حتى بس «مرحبا» 💌",
-    answers: ["رسالة", "الرسالة", "مسج", "المسج"],
+    question: "شو أسرع شي بيخلّيني ابتسم، حتى لو كنت معصّب؟",
+    hint: "غالبًا بيطلع منك من دون ما تنتبهي 😊",
+    answers: ["ضحكتك", "ضحكه", "ضحكة", "ابتسامتك", "ابتسامة", "ابتسامه", "ضحكتها"],
   },
   {
-    question: "شي من القلب، وكل ما عطيتِ منه للناس بيكبر أكتر. شو هو؟",
-    hint: "مو هدية بتنشرى، بس أغلى بكتير 🤍",
-    answers: ["حب", "الحب", "محبة", "المحبة"],
+    question: "لما نحكي سوا، شو بيصير بالوقت؟",
+    hint: "منبلّش نحكي شوي، وفجأة منلاقي الساعة ركضت ⏰",
+    answers: ["بيطير", "الوقت بيطير", "بيمر", "بيمرق", "بسرعة", "بيركض"],
   },
   {
-    question: "بتكون عالطاولة بفنجان، وبتحلى أكتر مع القعدة الحلوة. شو هي؟",
-    hint: "ريحة بتصحصح وبتروّق ☕",
-    answers: ["قهوة", "القهوة", "قهوه", "القهوه"],
+    question: "شي ما بينشرى ولا بينهدى بعلبة، بس وجوده بيخلّي القعدة أحلى. شو هو؟",
+    hint: "إنتِ بتجيبيه معاكي وين ما رحتي 🤍",
+    answers: ["وجودك", "وجود", "الوجود", "انت", "انتي", "إنتي"],
   },
   {
-    question: "إلها ريحة حلوة، ولما تهديها لحدا بتقول كلام كتير من غير ما تحكي. شو هي؟",
-    hint: "هدية بسيطة وبتفرّح القلب 🌷",
-    answers: ["وردة", "الوردة", "زهرة", "الزهرة"],
+    question: "شو أحلى شي ممكن يوصلك من حدا مشتاق يحكي معك؟",
+    hint: "كلمتين عالشاشة، بس بيعملوا فرق كبير 💌",
+    answers: ["رسالة", "الرسالة", "رساله", "الرساله", "مسج", "مرحبا", "كيفك"],
   },
   {
-    question: "مع الشخص الصح بتبلّش خمس دقايق، وفجأة بتصير ساعتين. شو هي؟",
-    hint: "بتكون أحلى مع قهوة وحديث من القلب ✨",
-    answers: ["قعدة", "القعدة", "جلسة", "الجلسة", "سهرة", "السهرة"],
+    question: "إذا غبتي شوي عن يومي، شو بصير أعمل؟",
+    hint: "بستنى ترجعي نحكي، وبقولها من قلبي 🤍",
+    answers: ["بشتاقلك", "اشتقتلك", "بشتاق", "اشتاقلك", "بشتقلك", "الاشتياق"],
   },
   {
-    question: "خلصوا الألغاز، بس ضلّ سؤال من القلب… أي كلمة كنت حابب تسمعيها مني؟",
-    hint: "اختاري جوابك 😉",
-    type: "choice",
+    question: "آخر سؤال، وجاوبيه عراحتك: بتحبّيني؟",
+    hint: "اختاري جوابك... بس لا تستغربي إذا زر «ما بحبك» صار يتهرّب 😉",
+    answers: [],
   },
 ];
 
@@ -72,49 +72,27 @@ function renderRiddle() {
   const riddle = riddles[currentRiddle];
   const progress = currentRiddle + 1;
   const progressBar = document.querySelector(".progress-track");
+  const isFinalQuestion = currentRiddle === riddles.length - 1;
   const answerForm = document.getElementById("answer-form");
-  const choiceButtons = document.getElementById("choice-buttons");
-  const feedback = document.getElementById("answer-feedback");
+  const choiceArena = document.getElementById("choice-arena");
 
   document.getElementById("question-count").textContent =
-    `اللغز ${progress} من ${riddles.length}`;
+    `السؤال ${progress} من ${riddles.length}`;
   document.getElementById("riddle").textContent = riddle.question;
   document.getElementById("hint").textContent = riddle.hint;
   document.getElementById("answer").value = "";
-  feedback.textContent = "";
-  feedback.classList.remove("success");
-  answerForm.hidden = riddle.type === "choice";
-  choiceButtons.hidden = riddle.type !== "choice";
+  document.getElementById("answer-feedback").textContent = "";
+  answerForm.hidden = isFinalQuestion;
+  choiceArena.hidden = !isFinalQuestion;
+  document.getElementById("no-love-choice").style.cssText = "";
   document.getElementById("progress-fill").style.width =
     `${(progress / riddles.length) * 100}%`;
   progressBar.setAttribute("aria-valuenow", String(progress));
-  if (riddle.type === "choice") {
-    document.getElementById("love-button").focus();
+  if (isFinalQuestion) {
+    document.getElementById("love-choice").focus();
   } else {
     document.getElementById("answer").focus();
   }
-}
-
-function finishQuiz() {
-  showStage("message");
-  document.getElementById("sender-name").focus();
-}
-
-function dodgeNoLoveButton(event) {
-  if (event.cancelable) {
-    event.preventDefault();
-  }
-
-  const container = document.getElementById("choice-buttons");
-  const button = document.getElementById("no-love-button");
-  const containerBounds = container.getBoundingClientRect();
-  const buttonBounds = button.getBoundingClientRect();
-  const maxLeft = Math.max(0, containerBounds.width - buttonBounds.width);
-  const maxTop = Math.max(0, containerBounds.height - buttonBounds.height);
-
-  button.classList.add("is-dodging");
-  button.style.left = `${Math.random() * maxLeft}px`;
-  button.style.top = `${Math.random() * maxTop}px`;
 }
 
 function addEmailFallback(feedback, message) {
@@ -132,7 +110,7 @@ document.getElementById("login-form").addEventListener("submit", (event) => {
   const feedback = document.getElementById("login-error");
 
   if (username !== CORRECT_USER || password !== CORRECT_PASS) {
-    feedback.textContent = "اسم المستخدم أو كلمة السر مو مزبوطين، جرّبي كمان مرة 🤍";
+    feedback.textContent = "اسم المستخدم أو كلمة المرور مو صح، جرّبي مرة تانية 🤍";
     return;
   }
 
@@ -143,12 +121,14 @@ document.getElementById("login-form").addEventListener("submit", (event) => {
 
 document.getElementById("answer-form").addEventListener("submit", (event) => {
   event.preventDefault();
+  if (currentRiddle >= riddles.length - 1) return;
+
   const answer = normalizeAnswer(document.getElementById("answer").value);
   const acceptedAnswers = riddles[currentRiddle].answers.map(normalizeAnswer);
   const feedback = document.getElementById("answer-feedback");
 
   if (!acceptedAnswers.includes(answer)) {
-    feedback.textContent = "مو هي، بس قريبة! جرّبي كمان مرة أو شوفي التلميح 🌷";
+    feedback.textContent = "مو هي، جرّبي كمان مرة… التلميح بيساعد 😉";
     return;
   }
 
@@ -156,14 +136,30 @@ document.getElementById("answer-form").addEventListener("submit", (event) => {
   renderRiddle();
 });
 
-document.getElementById("love-button").addEventListener("click", finishQuiz);
-document.getElementById("no-love-button").addEventListener("pointerenter", (event) => {
-  if (event.pointerType === "mouse") {
-    dodgeNoLoveButton(event);
-  }
+function moveNoLoveChoice() {
+  const arena = document.getElementById("choice-arena");
+  const button = document.getElementById("no-love-choice");
+  const maxLeft = Math.max(0, arena.clientWidth - button.offsetWidth);
+  const maxTop = Math.max(0, arena.clientHeight - button.offsetHeight);
+
+  button.style.position = "absolute";
+  button.style.left = `${Math.random() * maxLeft}px`;
+  button.style.top = `${Math.random() * maxTop}px`;
+}
+
+document.getElementById("love-choice").addEventListener("click", () => {
+  showStage("message");
+  document.getElementById("sender-name").focus();
 });
-document.getElementById("no-love-button").addEventListener("pointerdown", dodgeNoLoveButton);
-document.getElementById("no-love-button").addEventListener("click", dodgeNoLoveButton);
+
+document.getElementById("no-love-choice").addEventListener("pointerenter", moveNoLoveChoice);
+document.getElementById("no-love-choice").addEventListener("focus", moveNoLoveChoice);
+document.getElementById("no-love-choice").addEventListener("click", (event) => {
+  event.preventDefault();
+  moveNoLoveChoice();
+  document.getElementById("answer-feedback").textContent =
+    "حتى الزر مو راضي يقولها… جرّبي التاني 😉";
+});
 
 document.getElementById("message-form").addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -176,13 +172,13 @@ document.getElementById("message-form").addEventListener("submit", async (event)
   const message = String(formData.get("message") || "").trim();
 
   if (!message) {
-    feedback.textContent = "اكتبيلي شي صغير قبل ما تبعتيها 🤍";
+    feedback.textContent = "اكتبيلي رسالة صغيرة قبل الإرسال 🤍";
     return;
   }
 
   if (window.location.protocol === "file:") {
     feedback.textContent =
-      "الإرسال التلقائي ما بيشتغل والملف مفتوح لحاله. افتحي الموقع من رابطه، أو ابعتيها من بريدك:";
+      "الإرسال التلقائي ما بيشتغل عند فتح الملف مباشرة. انشري الموقع على رابط ويب، أو استخدمي الإرسال عبر البريد:";
     addEmailFallback(feedback, message);
     continueButton.hidden = false;
     return;
@@ -220,23 +216,23 @@ document.getElementById("message-form").addEventListener("submit", async (event)
     }
 
     feedback.classList.add("success");
-    feedback.textContent = "وصلتني رسالتك، يسلملي قلبك 🤍";
+    feedback.textContent = "وصلتني رسالتك، شكرًا من قلبي 🤍";
     form.reset();
   } catch (error) {
     const reason = error instanceof Error ? error.message : "";
     if (/confirm|activation|verify/i.test(reason)) {
       feedback.textContent =
-        "لازم يتفعّل الإيميل أول شي. افتحي رسالة التفعيل اللي وصلتك واضغطي على الرابط، وبعدين جرّبي كمان مرة.";
+        "خدمة الإرسال بدها تفعيل أول مرة. افتحي رسالة التفعيل اللي وصلتك على بريد الاستقبال، وبعدها جرّبي الإرسال.";
     } else if (reason === "Failed to fetch" && window.location.protocol === "file:") {
       feedback.textContent =
-        "الإرسال التلقائي ما بيشتغل والملف مفتوح لحاله. افتحي الموقع من رابطه، أو ابعتيها من بريدك:";
+        "الإرسال التلقائي ما بيشتغل عند فتح الملف مباشرة. انشري الموقع على رابط ويب، أو استخدمي الإرسال عبر البريد:";
     } else if (reason === "Failed to fetch") {
       feedback.textContent =
-        "ما قدرنا نتصل بخدمة الإرسال. تأكدي من الإنترنت وجرّبي كمان مرة.";
+        "تعذّر الاتصال بخدمة الإرسال. تأكدي من اتصال الإنترنت وحاولي مرة تانية.";
     } else {
       feedback.textContent = reason
         ? `ما انبعتت الرسالة: ${reason}`
-        : "ما زبط الإرسال هالمرة، جرّبي كمان مرة.";
+        : "ما انبعتت الرسالة بسبب خطأ غير معروف. جرّبي مرة تانية.";
     }
     addEmailFallback(feedback, message);
     console.error("Message delivery failed:", error);
