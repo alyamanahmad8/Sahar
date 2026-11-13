@@ -7,7 +7,7 @@
       name="description"
       content="سبعة ألغاز لطيفة تقودك إلى بطاقة معايدة ورسالة من القلب."
     />
-    <meta name="theme-color" content="#f8edf3" />
+    <meta name="theme-color" content="#84243d" />
     <title>هدية صغيرة من القلب ✨</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,14 +27,14 @@
           <span>✦</span><span>هدية صغيرة</span><span>✦</span>
         </div>
         <div class="brand-mark" aria-hidden="true">❀</div>
-        <p class="eyebrow">من القلب، إلكِ</p>
-        <h1>مفاجأة صغيرة يا حلوة</h1>
-        <p class="intro">كم لغز لطيف، وبعدها رسالة معمولة خصيصًا إلكِ 🤍</p>
+        <p class="eyebrow">إلك يا سحر</p>
+        <h1>مفاجأة صغيرة من قلبي</h1>
+        <p class="intro">كم لغز خفاف، وبالآخر في شي بدي قلك ياه 🤍</p>
 
         <section id="login-stage" class="stage active" aria-labelledby="login-title">
-          <span class="step-label">البداية · دخول صغير ✨</span>
+          <span class="step-label">يلا نبلّش ✨</span>
           <h2 id="login-title" class="stage-title">جاهزة للمفاجأة؟</h2>
-          <p class="stage-copy">دخّلي اسم المستخدم وكلمة المرور لنبدأ حكايتنا.</p>
+          <p class="stage-copy">دخّلي اسم المستخدم وكلمة السر، ومنبلّش سوا.</p>
           <form id="login-form" class="form-stack">
             <label class="sr-only" for="username">اسم المستخدم</label>
             <input
@@ -54,14 +54,14 @@
               autocomplete="current-password"
               required
             />
-            <button type="submit">افتحي الهدية <span aria-hidden="true">♡</span></button>
+            <button type="submit">افتحي المفاجأة <span aria-hidden="true">♡</span></button>
           </form>
           <p id="login-error" class="feedback" aria-live="polite"></p>
         </section>
 
         <section id="quiz-stage" class="stage" aria-labelledby="quiz-title" hidden>
           <div class="progress-heading">
-            <span class="step-label">رحلة الألغاز</span>
+            <span class="step-label">كم لغز حلوين</span>
             <span id="question-count" class="question-count"></span>
           </div>
           <div
@@ -74,7 +74,7 @@
           >
             <span id="progress-fill"></span>
           </div>
-          <h2 id="quiz-title" class="stage-title">لغز صغير إلكِ</h2>
+          <h2 id="quiz-title" class="stage-title">ركّزي معي شوي 😉</h2>
           <p id="riddle" class="riddle-text"></p>
           <p id="hint" class="hint-text"></p>
           <form id="answer-form" class="form-stack">
@@ -83,26 +83,38 @@
               id="answer"
               name="answer"
               type="text"
-              placeholder="اكتبي إجابتك هون"
+              placeholder="شو بتتوقعي؟"
               autocomplete="off"
               required
             />
-            <button type="submit">تأكيد الإجابة <span aria-hidden="true">✦</span></button>
+            <button type="submit">إيه هي <span aria-hidden="true">♡</span></button>
           </form>
+          <div id="choice-buttons" class="choice-buttons" hidden>
+            <button id="love-button" type="button">بحبك 🤍</button>
+            <button
+              id="no-love-button"
+              class="no-love-button"
+              type="button"
+              tabindex="-1"
+              aria-label="ما بحبك، بس هالزر رح يهرب"
+            >
+              ما بحبك 🙈
+            </button>
+          </div>
           <p id="answer-feedback" class="feedback" aria-live="polite"></p>
         </section>
 
         <section id="message-stage" class="stage" aria-labelledby="message-title" hidden>
-          <span class="step-label">وصلنا لشي حلو 💌</span>
-          <h2 id="message-title" class="stage-title">هلق دورك تحكيلي</h2>
-          <p class="stage-copy">اكتبيلي أي شي بخاطرك، ورح توصلني رسالتك على الإيميل 🤍</p>
+          <span class="step-label">هلق دورك 💌</span>
+          <h2 id="message-title" class="stage-title">هلق صار دورك تحكيلي</h2>
+          <p class="stage-copy">اكتبيلي اللي بخاطرك، ورح توصلني رسالتك عالإيميل 🤍</p>
           <form id="message-form" class="form-stack">
             <label class="sr-only" for="sender-name">اسمك</label>
             <input
               id="sender-name"
               name="name"
               type="text"
-              placeholder="اسمك أو خليها مفاجأة"
+              placeholder="اسمك، أو خليها مفاجأة"
               maxlength="80"
               autocomplete="name"
             />
@@ -110,14 +122,14 @@
             <textarea
               id="message"
               name="message"
-              placeholder="اكتبيلي شي حلو..."
+              placeholder="اكتبيلي شي من قلبك..."
               rows="5"
               maxlength="2000"
               required
             ></textarea>
-            <button id="send-button" type="submit">ابعتيلي رسالتك <span aria-hidden="true">♡</span></button>
+            <button id="send-button" type="submit">ابعتيلي ياها <span aria-hidden="true">♡</span></button>
           </form>
-          <p class="privacy-note">رسالتك رح توصل لبريدي عبر خدمة إرسال النماذج.</p>
+          <p class="privacy-note">رسالتك رح توصل لعندي عالإيميل عن طريق خدمة الإرسال.</p>
           <p id="message-feedback" class="feedback" aria-live="polite"></p>
           <button id="continue-button" class="text-button" type="button" hidden>
             كمّلي للمعايدة <span aria-hidden="true">←</span>
@@ -125,15 +137,15 @@
         </section>
 
         <section id="greeting-stage" class="stage" aria-labelledby="greeting-title" hidden>
-          <span class="step-label">إلكِ، بكل الحب 🎁</span>
+          <span class="step-label">إلك يا سحر، بكل الحب 🎁</span>
           <div class="celebration" aria-hidden="true">🎂 ✨ 🌷</div>
-          <h2 id="greeting-title" class="stage-title">كل عام وإنتِ بألف خير!</h2>
+          <h2 id="greeting-title" class="stage-title">كل سنة وإنتِ سالمة!</h2>
           <div class="greeting-note">
-            <p>يا أحلى سحر، بتمنالك أيامًا تشبه قلبك الحلو، مليانة ضحك وراحة وأشياء بتفرّحك.</p>
-            <p>يا رب كل أمنية مخبّاية بقلبك تصير حقيقة، وتضلي دايمًا منوّرة حياة اللي حواليكِ.</p>
-            <p class="wish-signoff">إلكِ مني كل الحب والفرح، اليوم وكل يوم 🤍</p>
+            <p>يا رب سنتك الجديدة تكون مليانة ضحك وفرح، وأيام حلوة بتشبه قلبك.</p>
+            <p>بتمنالك كل شي حلو، وتتحقق كل أمنية ببالك، وتضلي دايمًا منوّرة الدني حواليكي.</p>
+            <p class="wish-signoff">كتير مبسوط إنك بحياتي، وكل سنة وإنتِ أحلى 🤍</p>
           </div>
-          <p class="signature">من شخص بيتمنالك كل السعادة ✨</p>
+          <p class="signature">من حدا معجب فيكي وبيتمنالك كل الفرح ✨</p>
         </section>
         <div class="card-footer" aria-hidden="true"><span>♡</span> صُنعت بمحبة <span>♡</span></div>
       </article>

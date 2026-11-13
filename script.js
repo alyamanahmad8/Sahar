@@ -5,39 +5,39 @@ const MESSAGE_EMAIL = "yamanahmad951@gmail.com";
 
 const riddles = [
   {
-    question: "له عقارب وما بيلدغ، وبيخبرنا قديش الساعة. شو هو؟",
-    hint: "شي منطلّع عليه لنعرف الوقت 🕰️",
-    answers: ["ساعة", "الساعة", "ساعه", "الساعه"],
+    question: "شو أول شي بيخلّي الواحد يبتسم غصب عنه لما يشوف حدا بيعزّ عليه؟",
+    hint: "بتطلع عالوجه من غير استئذان 😉",
+    answers: ["ابتسامة", "الابتسامة", "ابتسامه", "الابتسامه", "بسمة", "البسمة", "ضحكة", "الضحكة"],
   },
   {
-    question: "إله أسنان، بس عمره ما بيعض. شو هو؟",
-    hint: "منستعمله لنرتّب شعرنا 🌸",
-    answers: ["مشط", "المشط"],
+    question: "بتنبعت بكبسة، وإذا إجت من حدا غالي بتخلّي نهارك أحلى. شو هي؟",
+    hint: "ممكن تكون كلمة، أو حتى بس «مرحبا» 💌",
+    answers: ["رسالة", "الرسالة", "مسج", "المسج"],
   },
   {
-    question: "كل ما أخدت منه، بيكبر أكتر. شو هو؟",
-    hint: "بتلاقيه بالأرض، وممكن تحفريه 🕳️",
-    answers: ["حفرة", "الحفرة", "حفره", "الحفره"],
+    question: "شي من القلب، وكل ما عطيتِ منه للناس بيكبر أكتر. شو هو؟",
+    hint: "مو هدية بتنشرى، بس أغلى بكتير 🤍",
+    answers: ["حب", "الحب", "محبة", "المحبة"],
   },
   {
-    question: "بيمشي بالسما بلا رجلين، وبيبكي بلا عينين. شو هو؟",
-    hint: "لما يبكي، ممكن ينزل المطر ☁️",
-    answers: ["سحاب", "السحاب", "غيم", "الغيم", "غيمة", "الغيمة", "غيمه", "الغيمه"],
+    question: "بتكون عالطاولة بفنجان، وبتحلى أكتر مع القعدة الحلوة. شو هي؟",
+    hint: "ريحة بتصحصح وبتروّق ☕",
+    answers: ["قهوة", "القهوة", "قهوه", "القهوه"],
   },
   {
-    question: "بتشوفيه بالليل منوّر بالسما، وبيختفي الصبح. شو هو؟",
-    hint: "مو الشمس، وبيصير بدر بليالي الشهر 🌙",
-    answers: ["قمر", "القمر"],
+    question: "إلها ريحة حلوة، ولما تهديها لحدا بتقول كلام كتير من غير ما تحكي. شو هي؟",
+    hint: "هدية بسيطة وبتفرّح القلب 🌷",
+    answers: ["وردة", "الوردة", "زهرة", "الزهرة"],
   },
   {
-    question: "إلك شي خاص فيكي، والناس بينادوكي فيه. شو هو؟",
-    hint: "أهلك اختاروه إلك وإنتِ صغيرة 💌",
-    answers: ["اسم", "الاسم", "اسمك"],
+    question: "مع الشخص الصح بتبلّش خمس دقايق، وفجأة بتصير ساعتين. شو هي؟",
+    hint: "بتكون أحلى مع قهوة وحديث من القلب ✨",
+    answers: ["قعدة", "القعدة", "جلسة", "الجلسة", "سهرة", "السهرة"],
   },
   {
-    question: "شي كل ما شاركناه مع الناس، بيكبر وما بينقص. شو هو؟",
-    hint: "منعطيه من قلبنا وبيخلّي الدنيا أحلى 🤍",
-    answers: ["حب", "الحب", "محبة", "المحبة", "فرح", "الفرح", "سعادة", "السعادة"],
+    question: "خلصوا الألغاز، بس ضلّ سؤال من القلب… أي كلمة كنت حابب تسمعيها مني؟",
+    hint: "اختاري جوابك 😉",
+    type: "choice",
   },
 ];
 
@@ -72,17 +72,49 @@ function renderRiddle() {
   const riddle = riddles[currentRiddle];
   const progress = currentRiddle + 1;
   const progressBar = document.querySelector(".progress-track");
+  const answerForm = document.getElementById("answer-form");
+  const choiceButtons = document.getElementById("choice-buttons");
+  const feedback = document.getElementById("answer-feedback");
 
   document.getElementById("question-count").textContent =
     `اللغز ${progress} من ${riddles.length}`;
   document.getElementById("riddle").textContent = riddle.question;
   document.getElementById("hint").textContent = riddle.hint;
   document.getElementById("answer").value = "";
-  document.getElementById("answer-feedback").textContent = "";
+  feedback.textContent = "";
+  feedback.classList.remove("success");
+  answerForm.hidden = riddle.type === "choice";
+  choiceButtons.hidden = riddle.type !== "choice";
   document.getElementById("progress-fill").style.width =
     `${(progress / riddles.length) * 100}%`;
   progressBar.setAttribute("aria-valuenow", String(progress));
-  document.getElementById("answer").focus();
+  if (riddle.type === "choice") {
+    document.getElementById("love-button").focus();
+  } else {
+    document.getElementById("answer").focus();
+  }
+}
+
+function finishQuiz() {
+  showStage("message");
+  document.getElementById("sender-name").focus();
+}
+
+function dodgeNoLoveButton(event) {
+  if (event.cancelable) {
+    event.preventDefault();
+  }
+
+  const container = document.getElementById("choice-buttons");
+  const button = document.getElementById("no-love-button");
+  const containerBounds = container.getBoundingClientRect();
+  const buttonBounds = button.getBoundingClientRect();
+  const maxLeft = Math.max(0, containerBounds.width - buttonBounds.width);
+  const maxTop = Math.max(0, containerBounds.height - buttonBounds.height);
+
+  button.classList.add("is-dodging");
+  button.style.left = `${Math.random() * maxLeft}px`;
+  button.style.top = `${Math.random() * maxTop}px`;
 }
 
 function addEmailFallback(feedback, message) {
@@ -100,7 +132,7 @@ document.getElementById("login-form").addEventListener("submit", (event) => {
   const feedback = document.getElementById("login-error");
 
   if (username !== CORRECT_USER || password !== CORRECT_PASS) {
-    feedback.textContent = "اسم المستخدم أو كلمة المرور مو صح، جرّبي مرة تانية 🤍";
+    feedback.textContent = "اسم المستخدم أو كلمة السر مو مزبوطين، جرّبي كمان مرة 🤍";
     return;
   }
 
@@ -116,19 +148,22 @@ document.getElementById("answer-form").addEventListener("submit", (event) => {
   const feedback = document.getElementById("answer-feedback");
 
   if (!acceptedAnswers.includes(answer)) {
-    feedback.textContent = "مو هي، بس قريبة! جرّبي مرة تانية أو شوفي التلميح 🌷";
+    feedback.textContent = "مو هي، بس قريبة! جرّبي كمان مرة أو شوفي التلميح 🌷";
     return;
   }
 
   currentRiddle += 1;
-  if (currentRiddle === riddles.length) {
-    showStage("message");
-    document.getElementById("sender-name").focus();
-    return;
-  }
-
   renderRiddle();
 });
+
+document.getElementById("love-button").addEventListener("click", finishQuiz);
+document.getElementById("no-love-button").addEventListener("pointerenter", (event) => {
+  if (event.pointerType === "mouse") {
+    dodgeNoLoveButton(event);
+  }
+});
+document.getElementById("no-love-button").addEventListener("pointerdown", dodgeNoLoveButton);
+document.getElementById("no-love-button").addEventListener("click", dodgeNoLoveButton);
 
 document.getElementById("message-form").addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -141,13 +176,13 @@ document.getElementById("message-form").addEventListener("submit", async (event)
   const message = String(formData.get("message") || "").trim();
 
   if (!message) {
-    feedback.textContent = "اكتبيلي رسالة صغيرة قبل الإرسال 🤍";
+    feedback.textContent = "اكتبيلي شي صغير قبل ما تبعتيها 🤍";
     return;
   }
 
   if (window.location.protocol === "file:") {
     feedback.textContent =
-      "الإرسال التلقائي ما بيشتغل عند فتح الملف مباشرة. انشري الموقع على رابط ويب، أو استخدمي الإرسال عبر البريد:";
+      "الإرسال التلقائي ما بيشتغل والملف مفتوح لحاله. افتحي الموقع من رابطه، أو ابعتيها من بريدك:";
     addEmailFallback(feedback, message);
     continueButton.hidden = false;
     return;
@@ -185,23 +220,23 @@ document.getElementById("message-form").addEventListener("submit", async (event)
     }
 
     feedback.classList.add("success");
-    feedback.textContent = "وصلتني رسالتك، شكرًا من قلبي 🤍";
+    feedback.textContent = "وصلتني رسالتك، يسلملي قلبك 🤍";
     form.reset();
   } catch (error) {
     const reason = error instanceof Error ? error.message : "";
     if (/confirm|activation|verify/i.test(reason)) {
       feedback.textContent =
-        "خدمة الإرسال بدها تفعيل أول مرة. افتحي رسالة التفعيل اللي وصلتك على بريد الاستقبال، وبعدها جرّبي الإرسال.";
+        "لازم يتفعّل الإيميل أول شي. افتحي رسالة التفعيل اللي وصلتك واضغطي على الرابط، وبعدين جرّبي كمان مرة.";
     } else if (reason === "Failed to fetch" && window.location.protocol === "file:") {
       feedback.textContent =
-        "الإرسال التلقائي ما بيشتغل عند فتح الملف مباشرة. انشري الموقع على رابط ويب، أو استخدمي الإرسال عبر البريد:";
+        "الإرسال التلقائي ما بيشتغل والملف مفتوح لحاله. افتحي الموقع من رابطه، أو ابعتيها من بريدك:";
     } else if (reason === "Failed to fetch") {
       feedback.textContent =
-        "تعذّر الاتصال بخدمة الإرسال. تأكدي من اتصال الإنترنت وحاولي مرة تانية.";
+        "ما قدرنا نتصل بخدمة الإرسال. تأكدي من الإنترنت وجرّبي كمان مرة.";
     } else {
       feedback.textContent = reason
         ? `ما انبعتت الرسالة: ${reason}`
-        : "ما انبعتت الرسالة بسبب خطأ غير معروف. جرّبي مرة تانية.";
+        : "ما زبط الإرسال هالمرة، جرّبي كمان مرة.";
     }
     addEmailFallback(feedback, message);
     console.error("Message delivery failed:", error);

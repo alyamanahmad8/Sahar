@@ -4,12 +4,12 @@
 
 :root {
   color-scheme: light;
-  --ink: #49333d;
-  --muted: #927d88;
-  --berry: #a64e70;
-  --berry-dark: #79334f;
-  --rose: #faeaf0;
-  --line: #ead9e0;
+  --ink: #422630;
+  --muted: #89737b;
+  --berry: #84243d;
+  --berry-dark: #5d172c;
+  --rose: #f5e8eb;
+  --line: #e7d4da;
 }
 
 body {
@@ -22,9 +22,9 @@ body {
   overflow-x: hidden;
   padding: 38px 18px;
   background:
-    radial-gradient(ellipse at 12% 18%, rgba(255, 255, 255, 0.9), transparent 28%),
-    radial-gradient(ellipse at 90% 82%, rgba(233, 203, 219, 0.48), transparent 32%),
-    linear-gradient(135deg, #f8edf3 0%, #f5e9ef 54%, #f9f1e9 100%);
+    radial-gradient(ellipse at 12% 18%, rgba(255, 255, 255, 0.88), transparent 28%),
+    radial-gradient(ellipse at 90% 82%, rgba(217, 180, 190, 0.32), transparent 32%),
+    linear-gradient(135deg, #f4edef 0%, #f1e7e9 54%, #f7f0ed 100%);
   color: var(--ink);
   font-family: "Cairo", sans-serif;
 }
@@ -63,21 +63,10 @@ body {
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.96);
   border-radius: 30px;
-  background: rgba(255, 252, 250, 0.94);
+  background: rgba(255, 252, 251, 0.96);
   box-shadow: 0 28px 80px rgba(91, 48, 69, 0.15), 0 4px 18px rgba(91, 48, 69, 0.06);
   text-align: center;
   backdrop-filter: blur(12px);
-}
-
-.gift-card::before {
-  position: absolute;
-  top: 0;
-  right: 12%;
-  left: 12%;
-  height: 4px;
-  border-radius: 0 0 99px 99px;
-  background: linear-gradient(90deg, #eac1b2, #a64e70, #d6b77c);
-  content: "";
 }
 
 .card-topline {
@@ -85,14 +74,14 @@ body {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  color: #b28a99;
+  color: #a57d89;
   font-size: 0.75rem;
   letter-spacing: 0.08em;
 }
 
 .card-topline span:first-child,
 .card-topline span:last-child {
-  color: #c8a86c;
+  color: var(--berry);
 }
 
 .brand-mark {
@@ -103,7 +92,7 @@ body {
   place-items: center;
   border: 1px solid rgba(166, 78, 112, 0.17);
   border-radius: 50%;
-  background: linear-gradient(145deg, #fff8f4, #f6e5ec);
+  background: linear-gradient(145deg, #fff8f7, #f2e3e7);
   box-shadow: 0 7px 18px rgba(91, 48, 69, 0.09);
   color: #b4778c;
   font-size: 1.65rem;
@@ -137,6 +126,10 @@ h1 {
 
 .stage[hidden] {
   display: none;
+}
+
+[hidden] {
+  display: none !important;
 }
 
 @keyframes rise-in {
@@ -212,9 +205,9 @@ textarea::placeholder {
 
 input:focus,
 textarea:focus {
-  border-color: rgba(166, 78, 112, 0.65);
+  border-color: rgba(132, 36, 61, 0.65);
   background: #fff;
-  box-shadow: 0 0 0 4px rgba(166, 78, 112, 0.1);
+  box-shadow: 0 0 0 4px rgba(132, 36, 61, 0.1);
 }
 
 button {
@@ -222,8 +215,8 @@ button {
   padding: 11px 18px;
   border: 0;
   border-radius: 14px;
-  background: linear-gradient(135deg, #b45c7c, #813a59);
-  box-shadow: 0 8px 18px rgba(129, 58, 89, 0.2);
+  background: linear-gradient(135deg, #99405a, #641a31);
+  box-shadow: 0 8px 18px rgba(100, 26, 49, 0.2);
   color: #fff;
   font: inherit;
   font-size: 0.98rem;
@@ -233,7 +226,7 @@ button {
 }
 
 button:hover {
-  box-shadow: 0 11px 22px rgba(129, 58, 89, 0.26);
+  box-shadow: 0 11px 22px rgba(100, 26, 49, 0.26);
   filter: saturate(1.08);
   transform: translateY(-2px);
 }
@@ -243,7 +236,7 @@ button:active {
 }
 
 button:focus-visible {
-  outline: 3px solid rgba(166, 78, 112, 0.4);
+  outline: 3px solid rgba(132, 36, 61, 0.4);
   outline-offset: 3px;
 }
 
@@ -290,7 +283,7 @@ button:disabled {
   width: 0;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #d7ad79, #b45c7c);
+  background: linear-gradient(90deg, #ad5269, #741d36);
   transition: width 0.35s ease;
 }
 
@@ -308,6 +301,28 @@ button:disabled {
   color: var(--muted);
   font-size: 0.88rem;
   line-height: 1.7;
+}
+
+.choice-buttons {
+  position: relative;
+  display: grid;
+  min-height: 126px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.choice-buttons button {
+  width: 100%;
+}
+
+.choice-buttons .no-love-button.is-dodging {
+  position: absolute;
+  z-index: 1;
+  width: auto;
+  min-width: 130px;
+  transition: left 0.16s ease, top 0.16s ease;
 }
 
 .privacy-note {
@@ -347,9 +362,9 @@ button:disabled {
 .greeting-note {
   margin-top: 18px;
   padding: 22px 19px;
-  border: 1px solid rgba(197, 164, 111, 0.33);
+  border: 1px solid rgba(132, 36, 61, 0.2);
   border-radius: 19px;
-  background: linear-gradient(145deg, #fff8ee, #faedf0);
+  background: linear-gradient(145deg, #fff8f5, #f6e9ec);
   box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.35);
 }
 
