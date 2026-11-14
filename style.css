@@ -303,10 +303,14 @@ button:disabled {
   line-height: 1.7;
 }
 
+.balloon-game .stage-copy {
+  margin: 0 auto 10px;
+}
+
 .choice-arena {
   position: relative;
   display: flex;
-  min-height: 76px;
+  min-height: 88px;
   align-items: center;
   justify-content: center;
   gap: 12px;
@@ -324,12 +328,251 @@ button:disabled {
 .no-love-choice {
   background: linear-gradient(135deg, #a49491, #746663);
   box-shadow: 0 8px 18px rgba(76, 0, 12, 0.12);
-  transition: left 0.18s ease, top 0.18s ease, box-shadow 0.18s ease;
+  transition: left 0.18s ease, top 0.18s ease;
 }
 
-.no-love-choice:hover {
-  box-shadow: 0 8px 18px rgba(76, 0, 12, 0.12);
-  transform: none;
+.balloon-arena {
+  display: grid;
+  min-height: 312px;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-rows: repeat(4, 78px);
+  align-items: center;
+  justify-items: center;
+  overflow: hidden;
+}
+
+.balloon {
+  position: relative;
+  width: 43px;
+  height: 57px;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50% 50% 48% 48% / 44% 44% 56% 56%;
+  background:
+    radial-gradient(ellipse at 32% 24%, rgba(255, 255, 255, 0.88) 0 5%, transparent 22%),
+    radial-gradient(ellipse at 35% 22%, var(--balloon-light), var(--balloon-color) 72%);
+  box-shadow: inset -6px -7px 10px rgba(76, 0, 12, 0.15), 0 7px 12px rgba(76, 0, 12, 0.13);
+  animation: balloon-float 3.2s ease-in-out infinite alternate;
+  grid-column: var(--balloon-column);
+  grid-row: var(--balloon-row);
+}
+
+.balloon::before {
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-top: 8px solid var(--balloon-color);
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+  content: "";
+  transform: translateX(-50%);
+}
+
+.balloon::after {
+  position: absolute;
+  top: 57px;
+  left: 50%;
+  width: 1px;
+  height: 28px;
+  background: rgba(91, 48, 69, 0.36);
+  content: "";
+}
+
+.balloon:hover {
+  filter: brightness(1.06);
+}
+
+.balloon:disabled {
+  opacity: 1;
+  box-shadow: none;
+}
+
+.balloon.popped {
+  animation: balloon-pop 0.28s ease forwards;
+  pointer-events: none;
+}
+
+.balloon:nth-child(6n + 1) {
+  --balloon-color: #e16d84;
+  --balloon-light: #ffd1d6;
+}
+
+.balloon:nth-child(6n + 2) {
+  --balloon-color: #9d7bc2;
+  --balloon-light: #e6d7f6;
+}
+
+.balloon:nth-child(6n + 3) {
+  --balloon-color: #e5a450;
+  --balloon-light: #ffe4b9;
+}
+
+.balloon:nth-child(6n + 4) {
+  --balloon-color: #63a99b;
+  --balloon-light: #c9f0e5;
+}
+
+.balloon:nth-child(6n + 5) {
+  --balloon-color: #d66b9c;
+  --balloon-light: #ffd2e4;
+}
+
+.balloon:nth-child(6n) {
+  --balloon-color: #728fc7;
+  --balloon-light: #d1e1ff;
+}
+
+.balloon:nth-child(1) {
+  --balloon-column: 2;
+  --balloon-row: 1;
+}
+
+.balloon:nth-child(2) {
+  --balloon-column: 3;
+  --balloon-row: 1;
+}
+
+.balloon:nth-child(3) {
+  --balloon-column: 6;
+  --balloon-row: 1;
+}
+
+.balloon:nth-child(4) {
+  --balloon-column: 7;
+  --balloon-row: 1;
+}
+
+.balloon:nth-child(5) {
+  --balloon-column: 1;
+  --balloon-row: 2;
+}
+
+.balloon:nth-child(6) {
+  --balloon-column: 2;
+  --balloon-row: 2;
+}
+
+.balloon:nth-child(7) {
+  --balloon-column: 7;
+  --balloon-row: 2;
+}
+
+.balloon:nth-child(8) {
+  --balloon-column: 8;
+  --balloon-row: 2;
+}
+
+.balloon:nth-child(9) {
+  --balloon-column: 2;
+  --balloon-row: 3;
+}
+
+.balloon:nth-child(10) {
+  --balloon-column: 3;
+  --balloon-row: 3;
+}
+
+.balloon:nth-child(11) {
+  --balloon-column: 4;
+  --balloon-row: 3;
+}
+
+.balloon:nth-child(12) {
+  --balloon-column: 5;
+  --balloon-row: 3;
+}
+
+.balloon:nth-child(13) {
+  --balloon-column: 6;
+  --balloon-row: 3;
+}
+
+.balloon:nth-child(14) {
+  --balloon-column: 7;
+  --balloon-row: 3;
+}
+
+.balloon:nth-child(15) {
+  --balloon-column: 3;
+  --balloon-row: 4;
+}
+
+.balloon:nth-child(16) {
+  --balloon-column: 4;
+  --balloon-row: 4;
+}
+
+.balloon:nth-child(17) {
+  --balloon-column: 5;
+  --balloon-row: 4;
+}
+
+.balloon:nth-child(18) {
+  --balloon-column: 6;
+  --balloon-row: 4;
+}
+
+.balloon:nth-child(2n) {
+  animation-delay: -1.3s;
+}
+
+.balloon:nth-child(3n) {
+  animation-delay: -2.1s;
+}
+
+.balloon-reveal {
+  min-height: 55px;
+  margin: 2px 0 0;
+  color: var(--berry-dark);
+  font-family: "Amiri", serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.65;
+}
+
+.balloon-reveal.reveal-pop {
+  animation: trait-reveal 0.58s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.balloon-count {
+  min-height: 24px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.83rem;
+}
+
+@keyframes balloon-float {
+  from {
+    transform: translateY(3px) rotate(-4deg);
+  }
+  to {
+    transform: translateY(-9px) rotate(4deg);
+  }
+}
+
+@keyframes balloon-pop {
+  to {
+    opacity: 0;
+    transform: scale(1.7);
+  }
+}
+
+@keyframes trait-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .privacy-note {
@@ -358,6 +601,11 @@ button:disabled {
 .text-button:hover {
   background: var(--rose);
   box-shadow: none;
+}
+
+.continue-button {
+  width: 100%;
+  margin-top: 12px;
 }
 
 .celebration {
@@ -433,6 +681,21 @@ button:disabled {
 
   .riddle-text {
     font-size: 1.43rem;
+  }
+
+  .balloon-arena {
+    min-height: 288px;
+    grid-template-rows: repeat(4, 72px);
+  }
+
+  .balloon {
+    width: 36px;
+    height: 48px;
+  }
+
+  .balloon::after {
+    top: 48px;
+    height: 23px;
   }
 }
 

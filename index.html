@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="سبعة أسئلة لطيفة باللهجة الشامية تقودك إلى بطاقة معايدة ورسالة من القلب."
+      content="تحدّي لطيف باللهجة الشامية يقودك إلى بطاقة معايدة ورسالة من القلب."
     />
     <meta name="theme-color" content="#790014" />
     <title>هدية صغيرة من القلب ✨</title>
-    <link rel="stylesheet" href="style.css?v=dark-red-20261113" />
+    <link rel="stylesheet" href="style.css?v=balloons-20261114-4" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <script src="script.js?v=burgundy-20261113" defer></script>
+    <script src="script.js?v=compatibility-20261114" defer></script>
   </head>
   <body>
     <div class="ambient ambient-one" aria-hidden="true"></div>
@@ -24,14 +24,20 @@
     <main class="page-shell">
       <article class="gift-card">
         <div class="card-topline" aria-hidden="true">
-          <span>♡</span><span>هدية صغيرة</span><span>♡</span>
+          <span>هدية صغيرة قد طولك</span>
         </div>
-        <div class="brand-mark" aria-hidden="true">♥</div>
-        <p class="eyebrow">إلك يا سحر</p>
+        <div class="brand-mark" aria-hidden="true" style="font-size: 100%">
+          ♥️
+        </div>
+        <p class="eyebrow"></p>
         <h1>مفاجأة صغيرة من قلبي</h1>
-        <p class="intro">كم سؤال خفاف، وبالآخر في شي بدي قلك ياه 🤍</p>
+        <p class="intro">كم سؤال خفاف، ولطاف حتى تكون هدية سبشل 🤍</p>
 
-        <section id="login-stage" class="stage active" aria-labelledby="login-title">
+        <section
+          id="login-stage"
+          class="stage active"
+          aria-labelledby="login-title"
+        >
           <span class="step-label">يلا نبلّش ✨</span>
           <h2 id="login-title" class="stage-title">جاهزة للمفاجأة؟</h2>
           <p class="stage-copy">دخّلي اسم المستخدم وكلمة السر، ومنبلّش سوا.</p>
@@ -54,14 +60,21 @@
               autocomplete="current-password"
               required
             />
-            <button type="submit">افتحي المفاجأة <span aria-hidden="true">♡</span></button>
+            <button type="submit">
+              افتحي المفاجأة <span aria-hidden="true">♡</span>
+            </button>
           </form>
           <p id="login-error" class="feedback" aria-live="polite"></p>
         </section>
 
-        <section id="quiz-stage" class="stage" aria-labelledby="quiz-title" hidden>
+        <section
+          id="quiz-stage"
+          class="stage"
+          aria-labelledby="quiz-title"
+          hidden
+        >
           <div class="progress-heading">
-            <span class="step-label">كم سؤال حلوين</span>
+            <span class="step-label">كم سؤال حلوين مثل عيونك</span>
             <span id="question-count" class="question-count"></span>
           </div>
           <div
@@ -69,7 +82,7 @@
             role="progressbar"
             aria-label="التقدم بالأسئلة"
             aria-valuemin="0"
-            aria-valuemax="7"
+            aria-valuemax="11"
             aria-valuenow="0"
           >
             <span id="progress-fill"></span>
@@ -85,23 +98,103 @@
               type="text"
               placeholder="شو بتتوقعي؟"
               autocomplete="off"
+              maxlength="500"
+              aria-describedby="answer-feedback"
               required
             />
-            <button type="submit">إيه هي <span aria-hidden="true">♡</span></button>
+            <button type="submit">
+              نيكسسست<span aria-hidden="true">♡</span>
+            </button>
           </form>
           <div id="choice-arena" class="choice-arena" hidden>
-            <button id="love-choice" class="choice-button" type="button">بحبك 🤍</button>
-            <button id="no-love-choice" class="choice-button no-love-choice" type="button">
+            <button id="love-choice" class="choice-button" type="button">
+              بحبك 🤍
+            </button>
+            <button
+              id="no-love-choice"
+              class="choice-button no-love-choice"
+              type="button"
+            >
               ما بحبك
             </button>
+          </div>
+          <div id="balloon-game" class="balloon-game" hidden>
+            <p class="stage-copy">
+              فقّعي البالونات وحدة وحدة، وكل وحدة مخبّاية صفة بحبّها فيكي 🎈
+            </p>
+            <div id="balloon-arena" class="balloon-arena" aria-label="بالونات عائمة">
+              <button class="balloon balloon-one" type="button" data-trait="ضحكتك اللي بتنوّر يومي">
+                <span class="sr-only">فقّعي البالون الأول</span>
+              </button>
+              <button class="balloon balloon-two" type="button" data-trait="قلبك الطيب والحنون">
+                <span class="sr-only">فقّعي البالون الثاني</span>
+              </button>
+              <button class="balloon balloon-three" type="button" data-trait="عفويتك اللي ما بتتشبّه بحدا">
+                <span class="sr-only">فقّعي البالون الثالث</span>
+              </button>
+              <button class="balloon balloon-four" type="button" data-trait="عيونك الحلوين">
+                <span class="sr-only">فقّعي البالون الرابع</span>
+              </button>
+              <button class="balloon balloon-five" type="button" data-trait="طريقتك الحلوة بالحكي">
+                <span class="sr-only">فقّعي البالون الخامس</span>
+              </button>
+              <button class="balloon balloon-six" type="button" data-trait="وجودك اللي بيخلّي كل شي أحلى">
+                <span class="sr-only">فقّعي البالون السادس</span>
+              </button>
+              <button class="balloon" type="button" data-trait="حنانك واهتمامك باللي حواليكي">
+                <span class="sr-only">فقّعي البالون السابع</span>
+              </button>
+              <button class="balloon" type="button" data-trait="ذكاءك وطريقتك الحلوة بالتفكير">
+                <span class="sr-only">فقّعي البالون الثامن</span>
+              </button>
+              <button class="balloon" type="button" data-trait="روحك الخفيفة اللي بتضحّك الكل">
+                <span class="sr-only">فقّعي البالون التاسع</span>
+              </button>
+              <button class="balloon" type="button" data-trait="طيبتك اللي بتبين بأصغر التفاصيل">
+                <span class="sr-only">فقّعي البالون العاشر</span>
+              </button>
+              <button class="balloon" type="button" data-trait="حضورك اللي ما بينتسى">
+                <span class="sr-only">فقّعي البالون الحادي عشر</span>
+              </button>
+              <button class="balloon" type="button" data-trait="أسلوبك المميز بكل شي">
+                <span class="sr-only">فقّعي البالون الثاني عشر</span>
+              </button>
+              <button class="balloon" type="button" data-trait="صراحتك وعفويتك">
+                <span class="sr-only">فقّعي البالون الثالث عشر</span>
+              </button>
+              <button class="balloon" type="button" data-trait="قدرتك تخلّي اللحظات العادية حلوة">
+                <span class="sr-only">فقّعي البالون الرابع عشر</span>
+              </button>
+              <button class="balloon" type="button" data-trait="تفاصيلك الصغيرة اللي بحبّها">
+                <span class="sr-only">فقّعي البالون الخامس عشر</span>
+              </button>
+              <button class="balloon" type="button" data-trait="إنك إنتِ، بكل بساطة 🤍">
+                <span class="sr-only">فقّعي البالون السادس عشر</span>
+              </button>
+              <button class="balloon" type="button" data-trait="صوتك الحلو اللي بحب أسمعه">
+                <span class="sr-only">فقّعي البالون السابع عشر</span>
+              </button>
+              <button class="balloon" type="button" data-trait="آخر شي بحبّه فيكي إنك إنتِ 🤍">
+                <span class="sr-only">فقّعي البالون الثامن عشر والأخير</span>
+              </button>
+            </div>
+            <p id="balloon-reveal" class="balloon-reveal" aria-live="polite"></p>
+            <p id="balloon-count" class="balloon-count"></p>
           </div>
           <p id="answer-feedback" class="feedback" aria-live="polite"></p>
         </section>
 
-        <section id="message-stage" class="stage" aria-labelledby="message-title" hidden>
+        <section
+          id="message-stage"
+          class="stage"
+          aria-labelledby="message-title"
+          hidden
+        >
           <span class="step-label">هلق إجا دورك 💌</span>
-          <h2 id="message-title" class="stage-title">شو بدك تحكيلي؟</h2>
-          <p class="stage-copy">إذا حابة، اكتبِيلي شي من قلبك وبيوصلني عالإيميل 🤍</p>
+          <h2 id="message-title" class="stage-title">رسالتك قبل المعايدة 💌</h2>
+          <p class="stage-copy">
+            قبل ما تفتحي معايدتك، اكتبيلي رسالة صغيرة من قلبك 🤍
+          </p>
           <form id="message-form" class="form-stack">
             <label class="sr-only" for="sender-name">اسمك</label>
             <input
@@ -116,32 +209,51 @@
             <textarea
               id="message"
               name="message"
-              placeholder="اكتبِيلي اللي بخاطرك..."
+              placeholder="اكتبِيلي اللي بخاطرك... الرسالة ضرورية للمتابعة"
               rows="5"
               maxlength="2000"
+              aria-describedby="message-feedback"
               required
             ></textarea>
-            <button id="send-button" type="submit">ابعتيلي ياها <span aria-hidden="true">♡</span></button>
+            <button id="send-button" type="submit">
+              ابعتي الرسالة وافتحي المعايدة <span aria-hidden="true">♡</span>
+            </button>
           </form>
-          <p class="privacy-note">رسالتك رح توصلني عالإيميل 🤍</p>
+
           <p id="message-feedback" class="feedback" aria-live="polite"></p>
-          <button id="continue-button" class="text-button" type="button" hidden>
-            كمّلي للمعايدة <span aria-hidden="true">←</span>
+          <button id="continue-button" class="continue-button" type="button" hidden>
+            افتحي المعايدة 🎁
           </button>
         </section>
 
-        <section id="greeting-stage" class="stage" aria-labelledby="greeting-title" hidden>
+        <section
+          id="greeting-stage"
+          class="stage"
+          aria-labelledby="greeting-title"
+          hidden
+        >
           <span class="step-label">إلكِ يا سحر 🎁</span>
           <div class="celebration" aria-hidden="true">🎂 🤍 🌷</div>
-          <h2 id="greeting-title" class="stage-title">كل سنة وإنتِ سالمة!</h2>
+          <h2 id="greeting-title" class="stage-title" tabindex="-1">
+            كل سنة وإنتِ سالمة!
+          </h2>
           <div class="greeting-note">
-            <p>يا رب سنتك الجديدة تكون مليانة ضحك وفرح، وأيام حلوة بتشبه قلبك.</p>
-            <p>بتمنالك كل شي حلو، وتتحقق كل أمنية ببالك، وتضلي دايمًا منوّرة الدني حواليكي.</p>
-            <p class="wish-signoff">كتير مبسوط إنك بحياتي، وكل سنة وإنتِ أحلى 🤍</p>
+            <p>
+              يا رب سنتك الجديدة تكون مليانة ضحك وفرح، وأيام حلوة بتشبه قلبك.
+            </p>
+            <p>
+              بتمنالك كل شي حلو، وتتحقق كل أمنية ببالك، وتضلي دايمًا منوّرة
+              الدني حواليكي.
+            </p>
+            <p class="wish-signoff">
+              كتير مبسوط إنك بحياتي، وكل سنة وإنتِ أحلى 🤍
+            </p>
           </div>
           <p class="signature">من حدا معجب فيكي وبيتمنالك كل الفرح ✨</p>
         </section>
-        <div class="card-footer" aria-hidden="true"><span>♡</span> معمولة بمحبة <span>♡</span></div>
+        <div class="card-footer" aria-hidden="true">
+          <span>♡</span> معمولة بمحبة <span>♡</span>
+        </div>
       </article>
     </main>
   </body>
