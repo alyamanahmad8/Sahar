@@ -1,7 +1,7 @@
 const CORRECT_USER = "sahar";
 const CORRECT_PASS = "@Sahar001395119271968";
-const MESSAGE_ENDPOINT = "https://formsubmit.co/ajax/yamanahmad951@gmail.com";
-const MESSAGE_EMAIL = "yamanahmad951@gmail.com";
+const MESSAGE_ENDPOINT = "https://formsubmit.co/ajax/fahmplus@gmail.com";
+const MESSAGE_EMAIL = "fahmplus@gmail.com";
 
 const riddles = [
   {
