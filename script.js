@@ -353,6 +353,8 @@ document
     renderAppleEmojis(feedback);
 
     try {
+      const controller = new AbortController();
+      const timeoutId = window.setTimeout(() => controller.abort(), 15000);
       const response = await fetch(MESSAGE_ENDPOINT, {
         method: "POST",
         headers: {
@@ -363,8 +365,12 @@ document
           name: senderName,
           message,
           _subject: "رسالة جديدة من بطاقة المعايدة",
+          _template: "table",
+          _captcha: "false",
         }),
+        signal: controller.signal,
       });
+      window.clearTimeout(timeoutId);
 
       const responseText = await response.text();
       let result;
@@ -402,6 +408,9 @@ document
       } else if (reason === "Failed to fetch") {
         feedback.textContent =
           "تعذّر الاتصال بخدمة الإرسال. تأكدي من اتصال الإنترنت وحاولي مرة تانية.";
+      } else if (/abort/i.test(reason)) {
+        feedback.textContent =
+          "الإرسال أخذ وقتًا أطول من المتوقّع. جرّبي مرة ثانية، وإذا استمر الخطأ فعّل خدمة الإرسال من بريدك.";
       } else {
         feedback.textContent = reason
           ? `ما انبعتت الرسالة: ${reason}`
