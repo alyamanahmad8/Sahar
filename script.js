@@ -2,70 +2,24 @@ const CORRECT_USER = "sahar";
 const CORRECT_PASS = "@Sahar001395119271968";
 const MESSAGE_ENDPOINT = "https://formsubmit.co/ajax/yamanahmad951@gmail.com";
 const MESSAGE_EMAIL = "yamanahmad951@gmail.com";
-const COMPATIBILITY_EMAIL_SUBJECT = "إجابات اختبار كم بتعرفيني؟";
 
 const riddles = [
   {
-    question: "شي صغير منك، بيخلّي يومي أحلى من دون ما تعملي شي. شو هو؟",
-    hint: "ممكن يوصل عالتلفون، وممكن يضلّ ببالي طول النهار 📱",
-    answers: [
-      "رسالة",
-      "الرسالة",
-      "رساله",
-      "الرساله",
-      "رسالتك",
-      "حكي",
-      "كلمة",
-      "كلمه",
-    ],
-  },
-  {
-    question: "شو أسرع شي بيخلّيني ابتسم، حتى لو كنت معصّب؟",
-    hint: "غالبًا بيطلع منك من دون ما تنتبهي 😊",
-    answers: [
-      "ضحكتك",
-      "ضحكه",
-      "ضحكة",
-      "ابتسامتك",
-      "ابتسامة",
-      "ابتسامه",
-      "ضحكتها",
-    ],
-  },
-  {
-    question: "لما نحكي سوا، شو بيصير بالوقت؟",
-    hint: "منبلّش نحكي شوي، وفجأة منلاقي الساعة ركضت ⏰",
-    answers: ["بيطير", "الوقت بيطير", "بيمر", "بيمرق", "بسرعة", "بيركض"],
-  },
-  {
-    question:
-      "شي ما بينشرى ولا بينهدى بعلبة، بس وجوده بيخلّي القعدة أحلى. شو هو؟",
-    hint: "إنتِ بتجيبيه معاكي وين ما رحتي 🤍",
-    answers: ["وجودك", "وجود", "الوجود", "انت", "انتي", "إنتي"],
-  },
-  {
-    question: "اختبار «كم بتعرفيني؟»",
-    hint: "",
-    answers: [],
-  },
-  {
-    question: "قبل ما نبلّش بالبالونات... بتحبّيني؟",
-    hint: "اختاري جوابك من قلبك 🤍",
+    question: "قبل ما نبلّش… بتحبّيني؟",
+    hint: "الجواب اجباري بحبك لان مابحبك او مارح خبرك جربيه ",
     answers: [],
   },
   {
     question: "تحدّي البالونات المتطايرة 🎈",
-    hint: "فقّعي البالونات واكتشفي الصفات اللي بحبّها فيكي.",
+    hint: "طقي البوالين واشوفي الشغلات اللي بحبّها فيكي.",
     answers: [],
   },
-];
-
-const compatibilityQuestions = [
-  "شو أكتر أكلة بتحبيها؟",
-  "لو طلعنا مشوار سوا، وين بتحبي نروح؟",
-  "شو الشي البسيط اللي بيحسّن مزاجك بسرعة؟",
-  "شو أحلى ذكرى أو موقف بتحبي تتذكريه بيناتنا؟",
-  "شو أمنية أو شي نفسك نعمله سوا؟",
+  {
+    type: "challenge",
+    challenge: "ثبّت القلب",
+    question: "ثبّتِي الضغط على القلب لمدة ثانيتين ونصف.",
+    hint: "القلب يحتاج لك حاضرة بثبات 🤍",
+  },
 ];
 
 const stages = {
@@ -76,11 +30,42 @@ const stages = {
 };
 
 let currentRiddle = 0;
-let compatibilityQuestion = 0;
-const compatibilityAnswers = [];
-const COMPATIBILITY_RIDDLE_INDEX = 4;
-const TOTAL_STEPS = riddles.length + compatibilityQuestions.length - 1;
+const TOTAL_STEPS = riddles.length;
 let messageWritten = false;
+let challengeAdvancing = false;
+
+function renderAppleEmojis(root) {
+  const emojiPattern =
+    /\p{Extended_Pictographic}(?:\uFE0F|\uFE0E)?|\p{Regional_Indicator}{2}/gu;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const textNodes = [];
+  while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+  textNodes.forEach((textNode) => {
+    if (!emojiPattern.test(textNode.nodeValue)) return;
+    emojiPattern.lastIndex = 0;
+    const fragment = document.createDocumentFragment();
+    let lastIndex = 0;
+
+    textNode.nodeValue.replace(emojiPattern, (emoji, offset) => {
+      fragment.append(
+        document.createTextNode(textNode.nodeValue.slice(lastIndex, offset)),
+      );
+      const image = document.createElement("img");
+      image.className = "apple-emoji";
+      image.src = `https://emojicdn.elk.sh/${encodeURIComponent(emoji)}?style=apple`;
+      image.alt = emoji;
+      image.setAttribute("aria-hidden", "true");
+      fragment.append(image);
+      lastIndex = offset + emoji.length;
+      return emoji;
+    });
+    fragment.append(
+      document.createTextNode(textNode.nodeValue.slice(lastIndex)),
+    );
+    textNode.replaceWith(fragment);
+  });
+}
 
 function showStage(stageName) {
   Object.entries(stages).forEach(([name, element]) => {
@@ -100,46 +85,94 @@ function normalizeAnswer(value) {
     .replace(/[^\p{L}\p{N}]/gu, "");
 }
 
+function renderChallenge(index) {
+  const arena = document.getElementById("challenge-arena");
+  arena.replaceChildren();
+
+  if (index === 2) {
+    const button = document.createElement("button");
+    const progress = document.createElement("span");
+    const heartImage = document.createElement("img");
+    let holdTimer;
+    let progressTimer;
+    let elapsed = 0;
+    button.type = "button";
+    button.className = "hold-heart";
+    heartImage.className = "hold-heart-image";
+    heartImage.src = "https://emojicdn.elk.sh/🤍?style=apple";
+    heartImage.alt = "";
+    heartImage.setAttribute("aria-hidden", "true");
+    progress.className = "hold-progress";
+    button.append(heartImage);
+    button.append(progress);
+
+    const cancelHold = () => {
+      window.clearInterval(progressTimer);
+      window.clearTimeout(holdTimer);
+      elapsed = 0;
+      progress.style.height = "0";
+    };
+    button.addEventListener("pointerdown", () => {
+      cancelHold();
+      progressTimer = window.setInterval(() => {
+        elapsed += 50;
+        progress.style.height = `${Math.min(100, (elapsed / 2500) * 100)}%`;
+      }, 50);
+      holdTimer = window.setTimeout(() => advanceChallenge(button), 2500);
+    });
+    button.addEventListener("pointerup", cancelHold);
+    button.addEventListener("pointerleave", cancelHold);
+    button.addEventListener("pointercancel", cancelHold);
+    arena.append(button);
+  }
+}
+
+function advanceChallenge(sourceButton) {
+  if (challengeAdvancing) return;
+  challengeAdvancing = true;
+  sourceButton.disabled = true;
+  window.setTimeout(() => {
+    challengeAdvancing = false;
+    showStage("message");
+    document.getElementById("message").focus();
+  }, 220);
+}
+
 function renderRiddle() {
   const riddle = riddles[currentRiddle];
-  const isCompatibilityQuiz = currentRiddle === COMPATIBILITY_RIDDLE_INDEX;
-  const progress = isCompatibilityQuiz
-    ? COMPATIBILITY_RIDDLE_INDEX + 1 + compatibilityQuestion
-    : currentRiddle < COMPATIBILITY_RIDDLE_INDEX
-      ? currentRiddle + 1
-      : currentRiddle + compatibilityQuestions.length;
+  const progress = currentRiddle + 1;
   const progressBar = document.querySelector(".progress-track");
-  const isBalloonChallenge = currentRiddle === riddles.length - 1;
-  const isLoveQuestion = currentRiddle === riddles.length - 2;
+  const isLoveQuestion = currentRiddle === 0;
+  const isBalloonChallenge = currentRiddle === 1;
+  const isChallenge = riddle.type === "challenge";
   const answerForm = document.getElementById("answer-form");
   const choiceArena = document.getElementById("choice-arena");
   const balloonGame = document.getElementById("balloon-game");
+  const challengeArena = document.getElementById("challenge-arena");
 
-  document.getElementById("question-count").textContent = isCompatibilityQuiz
-    ? `اختبار التوافق ${compatibilityQuestion + 1} من ${compatibilityQuestions.length}`
-    : `السؤال ${progress} من ${TOTAL_STEPS}`;
+  document.getElementById("question-count").textContent =
+    `التحدّي ${progress} من ${TOTAL_STEPS}`;
   document.getElementById("quiz-title").textContent = isBalloonChallenge
     ? "تحدّي البالونات المتطايرة 🎈"
-    : isCompatibilityQuiz
-      ? "اختبار «كم بتعرفيني؟» 💌"
-      : "ركّزي معي شوي 😉";
-  document.getElementById("riddle").textContent = isCompatibilityQuiz
-    ? compatibilityQuestions[compatibilityQuestion]
-    : riddle.question;
+    : isChallenge
+      ? riddle.challenge
+      : "قبل ما نكمّل 🤍";
+  document.getElementById("riddle").textContent = riddle.question;
   document.getElementById("riddle").hidden = isBalloonChallenge;
-  document.getElementById("hint").textContent = isCompatibilityQuiz
-    ? "جاوبي براحتك، ما في جواب غلط 🤍"
-    : riddle.hint;
+  document.getElementById("hint").textContent = riddle.hint;
   document.getElementById("hint").hidden = isBalloonChallenge;
   const answerInput = document.getElementById("answer");
   answerInput.value = "";
-  answerInput.placeholder = isCompatibilityQuiz
-    ? "اكتبي جوابك هون..."
-    : "شو بتتوقعي؟";
+  answerInput.placeholder = "كتبي إجابتك";
   document.getElementById("answer-feedback").textContent = "";
-  answerForm.hidden = isLoveQuestion || isBalloonChallenge;
+  answerForm.hidden = isLoveQuestion || isBalloonChallenge || isChallenge;
   choiceArena.hidden = !isLoveQuestion;
   balloonGame.hidden = !isBalloonChallenge;
+  challengeArena.hidden = !isChallenge;
+  if (isChallenge) renderChallenge(currentRiddle);
+  if (isLoveQuestion) {
+    document.getElementById("no-love-choice").style.cssText = "";
+  }
   document.getElementById("progress-fill").style.width =
     `${(progress / TOTAL_STEPS) * 100}%`;
   progressBar.setAttribute("aria-valuemax", String(TOTAL_STEPS));
@@ -151,6 +184,7 @@ function renderRiddle() {
   } else {
     document.getElementById("answer").focus();
   }
+  renderAppleEmojis(document.body);
 }
 
 function addEmailFallback(
@@ -166,77 +200,38 @@ function addEmailFallback(
   feedback.append(" ", fallbackLink);
 }
 
-async function sendCompatibilityAnswers() {
-  const feedback = document.getElementById("answer-feedback");
-  const subject = COMPATIBILITY_EMAIL_SUBJECT;
-  const message = compatibilityAnswers
-    .map(
-      ({ question, answer }, index) =>
-        `${index + 1}. ${question}\nالإجابة: ${answer}`,
-    )
-    .join("\n\n");
-
-  feedback.replaceChildren();
-  feedback.textContent = "عم ببعت أجوبتك عالإيميل... 💌";
-
-  if (window.location.protocol === "file:") {
-    feedback.textContent =
-      "الإرسال التلقائي ما بيشتغل عند فتح الملف مباشرة. فيكي تبعتي الأجوبة من هون:";
-    addEmailFallback(feedback, message, subject, "إرسال الأجوبة عبر البريد");
-    return;
-  }
-
-  try {
-    const response = await fetch(MESSAGE_ENDPOINT, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-        Accept: "application/json",
-      },
-      body: new URLSearchParams({
-        name: "إجابات اختبار كم بتعرفيني؟",
-        message,
-        _subject: subject,
-      }),
-    });
-
-    const responseText = await response.text();
-    let result;
-    try {
-      result = JSON.parse(responseText);
-    } catch {
-      throw new Error(`تعذر قراءة رد خدمة الإرسال (HTTP ${response.status}).`);
-    }
-
-    if (!response.ok || String(result.success).toLowerCase() !== "true") {
-      throw new Error(
-        result.message ||
-          result.error ||
-          `رفضت خدمة الإرسال الطلب (HTTP ${response.status}).`,
-      );
-    }
-
-    feedback.classList.add("success");
-    feedback.textContent = "وصلتني أجوبتك، شكرًا يا حلوة 🤍";
-  } catch (error) {
-    const reason = error instanceof Error ? error.message : "";
-    feedback.textContent = reason
-      ? `ما انبعتت الأجوبة: ${reason}`
-      : "ما انبعتت الأجوبة بسبب خطأ غير معروف.";
-    addEmailFallback(feedback, message, subject, "إرسال الأجوبة عبر البريد");
-    console.error("Compatibility answers delivery failed:", error);
-  }
-}
-
 function moveNoLoveChoice() {
   const arena = document.getElementById("choice-arena");
-  const button = document.getElementById("no-love-choice");
-  const maxLeft = Math.max(0, arena.clientWidth - button.offsetWidth);
-  const maxTop = Math.max(0, arena.clientHeight - button.offsetHeight);
+  const loveButton = document.getElementById("love-choice");
+  const noLoveButton = document.getElementById("no-love-choice");
+  const arenaRect = arena.getBoundingClientRect();
+  const loveRect = loveButton.getBoundingClientRect();
+  const maxLeft = Math.max(0, arena.clientWidth - noLoveButton.offsetWidth);
+  const maxTop = Math.max(0, arena.clientHeight - noLoveButton.offsetHeight);
+  const loveCenterX = loveRect.left - arenaRect.left + loveRect.width / 2;
+  const loveCenterY = loveRect.top - arenaRect.top + loveRect.height / 2;
 
-  button.style.position = "absolute";
-  button.style.left = `${Math.random() * maxLeft}px`;
-  button.style.top = `${Math.random() * maxTop}px`;
+  noLoveButton.style.position = "absolute";
+
+  for (let attempt = 0; attempt < 100; attempt += 1) {
+    const left = Math.random() * maxLeft;
+    const top = Math.random() * maxTop;
+    const noLoveCenterX = left + noLoveButton.offsetWidth / 2;
+    const noLoveCenterY = top + noLoveButton.offsetHeight / 2;
+    const distance = Math.hypot(
+      noLoveCenterX - loveCenterX,
+      noLoveCenterY - loveCenterY,
+    );
+
+    if (distance >= 100) {
+      noLoveButton.style.left = `${left}px`;
+      noLoveButton.style.top = `${top}px`;
+      return;
+    }
+  }
+
+  noLoveButton.style.left = "8px";
+  noLoveButton.style.top = `${maxTop}px`;
 }
 
 document.getElementById("login-form").addEventListener("submit", (event) => {
@@ -250,7 +245,7 @@ document.getElementById("login-form").addEventListener("submit", (event) => {
 
   if (username !== CORRECT_USER || password !== CORRECT_PASS) {
     feedback.textContent =
-      "اسم المستخدم أو كلمة المرور مو صح، جرّبي مرة تانية 🤍";
+      "اسم المستخدم أو كلمة المرور غير صحيح، جرّبي مرة ثانية 🤍";
     return;
   }
 
@@ -266,24 +261,6 @@ document.getElementById("answer-form").addEventListener("submit", (event) => {
   const answer = document.getElementById("answer").value.trim();
   if (!answer) return;
 
-  if (currentRiddle === COMPATIBILITY_RIDDLE_INDEX) {
-    compatibilityAnswers.push({
-      question: compatibilityQuestions[compatibilityQuestion],
-      answer,
-    });
-    compatibilityQuestion += 1;
-
-    if (compatibilityQuestion < compatibilityQuestions.length) {
-      renderRiddle();
-      return;
-    }
-
-    currentRiddle += 1;
-    renderRiddle();
-    void sendCompatibilityAnswers();
-    return;
-  }
-
   const normalizedAnswer = normalizeAnswer(answer);
   const acceptedAnswers = riddles[currentRiddle].answers.map(normalizeAnswer);
   const feedback = document.getElementById("answer-feedback");
@@ -298,8 +275,7 @@ document.getElementById("answer-form").addEventListener("submit", (event) => {
 });
 
 document.getElementById("love-choice").addEventListener("click", () => {
-  currentRiddle += 1;
-  document.getElementById("no-love-choice").style.cssText = "";
+  currentRiddle = 1;
   renderRiddle();
 });
 
@@ -312,7 +288,7 @@ document
 document.getElementById("no-love-choice").addEventListener("click", () => {
   moveNoLoveChoice();
   document.getElementById("answer-feedback").textContent =
-    "حتى الزر مو راضي يقولها… جرّبي التاني 😉";
+    "اختاري زر «بحبك» عشان نكمّل 🤍";
 });
 
 document.querySelectorAll(".balloon").forEach((balloon) => {
@@ -324,16 +300,18 @@ document.querySelectorAll(".balloon").forEach((balloon) => {
     reveal.classList.remove("reveal-pop");
     void reveal.offsetWidth;
     reveal.classList.add("reveal-pop");
+    renderAppleEmojis(reveal);
 
     const remaining = document.querySelectorAll(".balloon:not(.popped)").length;
     document.getElementById("balloon-count").textContent = remaining
       ? `باقي ${remaining} بالونات 🎈`
       : "وآخر بالون خبّى خطوة صغيرة قبل المعايدة… 🤍";
+    renderAppleEmojis(document.getElementById("balloon-count"));
 
     if (remaining === 0) {
       window.setTimeout(() => {
-        showStage("message");
-        document.getElementById("message").focus();
+        currentRiddle += 1;
+        renderRiddle();
       }, 700);
     }
   });
@@ -354,6 +332,7 @@ document
 
     if (!message) {
       feedback.textContent = "اكتبيلي رسالة صغيرة قبل الإرسال 🤍";
+      renderAppleEmojis(feedback);
       return;
     }
 
@@ -371,6 +350,7 @@ document
     feedback.classList.remove("success");
     feedback.replaceChildren();
     feedback.textContent = "عم ببعت رسالتك... 💌";
+    renderAppleEmojis(feedback);
 
     try {
       const response = await fetch(MESSAGE_ENDPOINT, {
@@ -406,6 +386,7 @@ document
 
       feedback.classList.add("success");
       feedback.textContent = "وصلتني رسالتك، شكرًا من قلبي 🤍";
+      renderAppleEmojis(feedback);
       form.reset();
     } catch (error) {
       const reason = error instanceof Error ? error.message : "";
@@ -443,3 +424,5 @@ document.getElementById("continue-button").addEventListener("click", () => {
   }
   showStage("greeting");
 });
+
+renderAppleEmojis(document.body);

@@ -325,6 +325,85 @@ button:disabled {
   min-width: 130px;
 }
 
+.challenge-arena {
+  display: flex;
+  min-height: 88px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.challenge-arena[hidden] {
+  display: none;
+}
+
+.challenge-button {
+  min-width: 150px;
+  min-height: 52px;
+  padding: 10px 14px;
+  border: 1px solid rgba(121, 0, 20, 0.12);
+  border-radius: 16px;
+  background: #fffaf9;
+  color: #790014;
+  box-shadow: 0 8px 18px rgba(76, 0, 12, 0.08);
+  font-family: inherit;
+  font-weight: 800;
+}
+
+.challenge-button.selected {
+  background: linear-gradient(135deg, #a3152b, #65000f);
+  color: #fff;
+  transform: scale(0.98);
+}
+
+.hold-heart {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 3px solid #d9adb5;
+  background: rgba(255, 250, 249, 0.96);
+  color: #790014;
+  font-size: 2.8rem;
+  box-shadow: 0 10px 24px rgba(121, 0, 20, 0.16);
+  touch-action: none;
+  user-select: none;
+}
+
+.hold-progress {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  height: 0;
+  width: 100%;
+  background: linear-gradient(180deg, #efb4c0, #b91f3a);
+  transition: height 0.05s linear;
+}
+
+.hold-heart-image,
+.apple-emoji {
+  width: 1em;
+  height: 1em;
+  object-fit: contain;
+  vertical-align: -0.12em;
+}
+
+.hold-heart-image {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: 58px;
+  height: 58px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
 .no-love-choice {
   background: linear-gradient(135deg, #a49491, #746663);
   box-shadow: 0 8px 18px rgba(76, 0, 12, 0.12);
@@ -334,8 +413,8 @@ button:disabled {
 .balloon-arena {
   display: grid;
   min-height: 312px;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
-  grid-template-rows: repeat(4, 78px);
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-rows: repeat(3, 104px);
   align-items: center;
   justify-items: center;
   overflow: hidden;
@@ -431,7 +510,7 @@ button:disabled {
 }
 
 .balloon:nth-child(2) {
-  --balloon-column: 3;
+  --balloon-column: 4;
   --balloon-row: 1;
 }
 
@@ -441,78 +520,23 @@ button:disabled {
 }
 
 .balloon:nth-child(4) {
-  --balloon-column: 7;
-  --balloon-row: 1;
+  --balloon-column: 3;
+  --balloon-row: 2;
 }
 
 .balloon:nth-child(5) {
-  --balloon-column: 1;
+  --balloon-column: 5;
   --balloon-row: 2;
 }
 
 .balloon:nth-child(6) {
-  --balloon-column: 2;
-  --balloon-row: 2;
+  --balloon-column: 3;
+  --balloon-row: 3;
 }
 
 .balloon:nth-child(7) {
-  --balloon-column: 7;
-  --balloon-row: 2;
-}
-
-.balloon:nth-child(8) {
-  --balloon-column: 8;
-  --balloon-row: 2;
-}
-
-.balloon:nth-child(9) {
-  --balloon-column: 2;
-  --balloon-row: 3;
-}
-
-.balloon:nth-child(10) {
-  --balloon-column: 3;
-  --balloon-row: 3;
-}
-
-.balloon:nth-child(11) {
-  --balloon-column: 4;
-  --balloon-row: 3;
-}
-
-.balloon:nth-child(12) {
   --balloon-column: 5;
   --balloon-row: 3;
-}
-
-.balloon:nth-child(13) {
-  --balloon-column: 6;
-  --balloon-row: 3;
-}
-
-.balloon:nth-child(14) {
-  --balloon-column: 7;
-  --balloon-row: 3;
-}
-
-.balloon:nth-child(15) {
-  --balloon-column: 3;
-  --balloon-row: 4;
-}
-
-.balloon:nth-child(16) {
-  --balloon-column: 4;
-  --balloon-row: 4;
-}
-
-.balloon:nth-child(17) {
-  --balloon-column: 5;
-  --balloon-row: 4;
-}
-
-.balloon:nth-child(18) {
-  --balloon-column: 6;
-  --balloon-row: 4;
 }
 
 .balloon:nth-child(2n) {
@@ -685,7 +709,7 @@ button:disabled {
 
   .balloon-arena {
     min-height: 288px;
-    grid-template-rows: repeat(4, 72px);
+    grid-template-rows: repeat(3, 96px);
   }
 
   .balloon {
